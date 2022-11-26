@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".Homeactivity">
+
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter location">
+
+    </EditText>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/location"
+        android:layout_marginTop="50dp">
+
+    </ImageView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload"
+        android:layout_below="@+id/image"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:text="upload image"
+        />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter date"
+        android:layout_below="@+id/upload"
+        android:layout_marginTop="20dp">
+
+    </EditText>
+    <EditText
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter time"
+        android:layout_below="@+id/date"
+        android:layout_marginTop="20dp">
+    </EditText>
+
+    <Button
+        android:id="@+id/insertdata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:layout_marginTop="20dp"
+        android:text="insertdata">
+
+    </Button>
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/insertdata"
+        android:layout_marginTop="20dp"
+        android:text="updatedata">
+
+    </Button>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewdata"
+        android:layout_below="@+id/update"
+        android:text="viewdata"
+        android:layout_marginTop="20dp">
+
+    </Button>
+
+
+
+
+
+
+
+</RelativeLayout>
