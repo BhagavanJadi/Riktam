@@ -1,30 +1,25 @@
 package com.example.problem_submit;
 
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+
 import android.database.Cursor;
-import android.media.Image;
+
 import android.os.Bundle;
-import android.provider.MediaStore;
+
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 public class Homeactivity extends AppCompatActivity {
-    ImageView image;
-    Button upload,insertdata,viewdata,updatedata;
-    EditText loaction,date,time;
-
-    DBHelper DB;
-    DBhelper2 db;
-
+    Button insertdatadb,viewdata,updatedata,deletedata;
+    EditText location,date,time,problem;
+    DBHelper2 DB;
 
 
     @Override
@@ -32,42 +27,50 @@ public class Homeactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeactivity);
 
-        image = findViewById(R.id.image);
-        upload = findViewById(R.id.upload);
-        loaction = findViewById(R.id.location);
-
-
-        insertdata=findViewById(R.id.insertdata);
-        viewdata=findViewById(R.id.viewdata);
-        updatedata = findViewById(R.id.update);
-
+        location = findViewById(R.id.location);
+        problem = findViewById(R.id.problem);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
 
-        DB = new DBHelper(this);
+
+        insertdatadb=findViewById(R.id.insertdata);
+        viewdata=findViewById(R.id.viewdata);
+        updatedata = findViewById(R.id.update);
+        deletedata = findViewById(R.id.deletedata);
 
 
-        insertdata.setOnClickListener(new View.OnClickListener() {
+        DB = new DBHelper2(this);
+
+
+        insertdatadb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String locationentry = loaction.getText().toString();
-                String dateentry =  date.getText().toString();
-                String timeentry = time.getText().toString();
+                String entrylocation = location.getText().toString();
+                String entryproblem = problem.getText().toString();
+                String entrydate = date.getText().toString();
+                String entrytime = time.getText().toString();
 
-                Boolean insertdata = db.insertusersData(locationentry,dateentry,timeentry);
 
-                if(insertdata==true){
-                    Toast.makeText(Homeactivity.this,"new entery inserted",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(Homeactivity.this,"new entery not  inserted",Toast.LENGTH_SHORT).show();
+
+
+                Boolean insertdatatodb = DB.insertusersData(entrylocation,entryproblem,entrydate,entrytime);
+
+                if(insertdatatodb==true){
+                    Toast.makeText(Homeactivity.this, "data inserted", Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    Toast.makeText(Homeactivity.this, "Data not inserted", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+
+
         viewdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor res = db.getdata();
+                Cursor res = DB.getdata();
                 if(res.getCount()==0){
                     Toast.makeText(Homeactivity.this,"No entery exists",Toast.LENGTH_SHORT).show();
                     return;
@@ -77,8 +80,10 @@ public class Homeactivity extends AppCompatActivity {
 
                 while(res.moveToNext()){
                     buffer.append("location : "+res.getString(0)+"\n");
-                    buffer.append("date : "+res.getString(1)+"\n");
-                    buffer.append("time : "+res.getString(2)+"\n");
+                    buffer.append("problem : "+res.getString(1)+"\n");
+                    buffer.append("date : "+res.getString(2)+"\n");
+                    buffer.append("time : "+res.getString(3)+"\n"+"***********************************"+"\n");
+
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(Homeactivity.this);
@@ -91,6 +96,48 @@ public class Homeactivity extends AppCompatActivity {
 
             }
         });
+
+        updatedata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String entrylocation = location.getText().toString();
+                String entryproblem = problem.getText().toString();
+                String entrydate = date.getText().toString();
+                String entrytime = time.getText().toString();
+
+                Boolean checkupdatedata = DB.updateusersData(entrylocation,entryproblem,entrydate,entrytime);
+                
+                if(checkupdatedata==true){
+                    Toast.makeText(Homeactivity.this, "Entry updated", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Homeactivity.this, "entry not updated", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        deletedata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String entrylocation = location.getText().toString();
+                String entryproblem = problem.getText().toString();
+                String entrydate = date.getText().toString();
+                String entrytime = time.getText().toString();
+
+
+                Boolean checkdeletedata = DB.deleteuserData(entrylocation,entryproblem,entrydate,entrytime);
+
+                if(checkdeletedata==true){
+                    Toast.makeText(Homeactivity.this, "Problem Solved and deleted", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Homeactivity.this, "problem not solved not deleted", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
 
 
 
